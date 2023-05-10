@@ -1,21 +1,85 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View, TextInput } from 'react-native';
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+// import { useFonts } from "@expo-google-fonts/Sigmar";
+import { StyleSheet, View, Image, Text } from "react-native";
+import TodoInput from "./components/TodoInput";
+import TodoItem from "./components/TodoItem";
 
 export default function App() {
   return (
-    <View style={styles.container}>
-      <Text>Welcome to my to do list!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <>
+      <StatusBar style="light" />
+      <View style={styles.container}>
+        <View style={styles.image}>
+          <Image
+            source={require("./assets/images/heading.png")}
+            style={styles.headerImage}
+            resizeMode="contain"
+          />
+        </View>
+        <TodoInput />
+        <Image
+          source={require("./assets/images/Line.png")}
+          style={styles.line}
+          resizeMode="contain"
+        />
+        <View style={styles.todoContainer}>
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+          <TodoItem />
+        </View>
+      </View>
+    </>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    paddingTop: 50,
+    backgroundColor: "#1E1E1E",
+
+    // debugging purpose
+    // borderWidth: 5,
+    // borderColor: "red",
   },
+  image: {
+    flex: 0.08,
+    // debugging purpose
+    // borderWidth: 5,
+    // borderColor: "red",
+  },
+  headerImage: {
+    width: 200,
+    height: 50,
+  },
+  line: {
+    flex: 0.01,
+    height: 5,
+    justifyContent: "center",
+    alignItems: "center",
+
+    // debugging purpose
+    // borderWidth: 5,
+    // borderColor: "red",
+  },
+  todoContainer: {
+    flex: 1,
+    width: "90%",
+    padding: 10,
+    flexDirection: "column",
+    justifyContent: "flex-start",
+    alignItems: "center",
+
+    // debugging purposes
+    // borderWidth: 5,
+    // borderColor: "red",
+  }
 });
