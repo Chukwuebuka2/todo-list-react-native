@@ -4,10 +4,8 @@ import { Pressable, StyleSheet, Text, View } from "react-native";
 function TodoItem(props) {
   return (
     <View style={styles.todoItem}>
-      <Pressable>
-        <Text style={styles.todoText}>
-          This is the to-do Item, There is nothing here
-        </Text>
+      <Pressable onPress={props.onDeleteItem.bind(this, props.id)}>
+        <Text style={styles.todoText}>{props.passedItem}</Text>
       </Pressable>
     </View>
   );
@@ -23,7 +21,7 @@ const styles = StyleSheet.create({
     height: 50,
     backgroundColor: "#222222",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
     // debugging purpose
     // borderWidth: 5,
     // borderColor: "red",

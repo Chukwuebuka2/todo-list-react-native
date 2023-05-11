@@ -1,11 +1,27 @@
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useState } from "react";
 // import { useFonts } from "@expo-google-fonts/Sigmar";
-import { StyleSheet, View, Image, Text } from "react-native";
+import { StyleSheet, View, Image, FlatList } from "react-native";
 import TodoInput from "./components/TodoInput";
 import TodoItem from "./components/TodoItem";
 
 export default function App() {
+  const [addedItems, setAddedItems] = useState([]);
+
+  function addItemHandler(receivedItem) {
+    // have a state that can receive that and addd to the previous things
+    setAddedItems((prevState) => [
+      ...prevState,
+      { text: receivedItem, id: Math.random().toString() },
+    ]);
+  }
+
+  function deleteItemHandler(id) {
+    setAddedItems((prevState) => {
+      return prevState.filter((todo) => todo.id !== id);
+    });
+  }
+
   return (
     <>
       <StatusBar style="light" />
@@ -17,21 +33,29 @@ export default function App() {
             resizeMode="contain"
           />
         </View>
-        <TodoInput />
+        <TodoInput onAddItem={addItemHandler} />
         <Image
           source={require("./assets/images/Line.png")}
           style={styles.line}
           resizeMode="contain"
         />
         <View style={styles.todoContainer}>
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
-          <TodoItem />
+          <FlatList
+            alwaysBounceVertical={false}
+            data={addedItems}
+            renderItem={(itemData) => {
+              return (
+                <TodoItem
+                  passedItem={itemData.item.text}
+                  id={itemData.item.id}
+                  onDeleteItem={deleteItemHandler}
+                />
+              );
+            }}
+            keyExtractor={(item, index) => {
+              return item.id;
+            }}
+          />
         </View>
       </View>
     </>
@@ -81,5 +105,5 @@ const styles = StyleSheet.create({
     // debugging purposes
     // borderWidth: 5,
     // borderColor: "red",
-  }
+  },
 });

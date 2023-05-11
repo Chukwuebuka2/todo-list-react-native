@@ -5,14 +5,27 @@ function TodoInput(props) {
   const [enteredText, setEnteredText] = useState("");
 
   function todoTextHandler(text) {
-    console.log(text)
-    setEnteredText(text)
+    console.log(text);
+    setEnteredText(text);
   }
+
+  function addTodoItemHandler() {
+    // send it to the App component
+    props.onAddItem(enteredText);
+    // set the value to be empty for the next input
+    setEnteredText("");
+  }
+
   return (
     <View style={styles.inputContainer}>
-      <TextInput placeholder="Enter To-do Item here" onChangeText={todoTextHandler} style={styles.todoInput} />
+      <TextInput
+        placeholder="Enter To-do Item here"
+        onChangeText={todoTextHandler}
+        style={styles.todoInput}
+        value={enteredText}
+      />
       <View style={styles.button}>
-        <Button title="Add Task" color="#4F4F4F" />
+        <Button title="Add Task" color="#4F4F4F" onPress={addTodoItemHandler} />
       </View>
     </View>
   );
@@ -22,9 +35,9 @@ export default TodoInput;
 
 const styles = StyleSheet.create({
   inputContainer: {
-    flex: .2,
+    flex: 0.2,
     justifyContent: "space-evenly",
-    alignItems: 'center',
+    alignItems: "center",
     flexDirection: "column",
     gap: 20,
     padding: 10,
